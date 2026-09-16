@@ -8,8 +8,8 @@ momentum: 0.99
 temperature: 0.2
 
 
-blr: 5.0e-4 #基础学习率
-min_blr: 5.0e-6 #最小学习率
+blr: 5.0e-4
+min_blr: 5.0e-6
 weight_decay: 1e-5
 
 epochs: 150

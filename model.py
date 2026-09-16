@@ -80,13 +80,9 @@ class DIVIDE(torch.nn.Module):
         deg_inv_sqrt = deg.pow(-0.5)
         A_norm = deg_inv_sqrt.unsqueeze(1) * A * deg_inv_sqrt.unsqueeze(0)
         
-        # 2. 带重启的随机游走 (RWR / PPR) 闭式解
-        # P = alpha * (I - (1-alpha) * A_norm)^{-1}
         I = torch.eye(N, device=device)
         A_high = alpha * torch.inverse(I - (1 - alpha) * A_norm)
         
-        # 3. 强制稀疏化 (Sparsification)
-        # 直接在内部动态计算高阶 K 值，避免外部传参导致的 Bug
         dynamic_k_high = max(5, int(base_k * 1.5)) 
             
         if dynamic_k_high < N:
@@ -96,10 +92,8 @@ class DIVIDE(torch.nn.Module):
             A_high_sparse.scatter_(1, topk_ind, topk_val)
             A_high = A_high_sparse
             
-            # 再次强制对称
             A_high = (A_high + A_high.t()) / 2.0
 
-        # 4. 对角线置 1
         A_high.fill_diagonal_(1.0)
 
         return A_high.clamp(min=0.0, max=1e6)
@@ -149,7 +143,6 @@ class DIVIDE(torch.nn.Module):
     
 
 
-#手动添加神经网络
 class FCN(nn.Module):
     def __init__(self, dim_layer=None, norm_layer=None, act_layer=None, drop_out=0.0, norm_last_layer=False):
         super(FCN, self).__init__()
@@ -181,7 +174,7 @@ class MLP(nn.Module):
         dim_out = dim_out or dim_in
         dim_hidden = int(dim_in * hidden_ratio)
         self.mlp = nn.Sequential(nn.Linear(dim_in, dim_hidden, bias=False),
-                                 nn.BatchNorm1d(dim_hidden),#仿照BYOL在MLP中添加了BN层
+                                 nn.BatchNorm1d(dim_hidden),
                                  act_layer(),
                                  nn.Linear(dim_hidden, dim_out,bias=True))
 
@@ -207,8 +200,8 @@ class ContrastiveLoss(nn.Module):
         else:
             mask_pos = mask_pos.to(device).float()
         
-        logits = torch.mm(x_q, x_k.t()) / self.temperature  # [N, N]
-        logits = torch.clamp(logits, min=-50.0, max=50.0)   # 防止溢出
+        logits = torch.mm(x_q, x_k.t()) / self.temperature
+        logits = torch.clamp(logits, min=-50.0, max=50.0)
 
         log_prob = logits - torch.logsumexp(logits, dim=1, keepdim=True)  
         pos_weight = mask_pos.sum(dim=1, keepdim=True).clamp(min=1e-8)  

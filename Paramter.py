@@ -7,7 +7,6 @@ def get_args_parameter():
                         help='path to config file')
     parser.add_argument('--encoder_dim', type=list, nargs='+', default=[])
 
-    # Model parameters
     parser.add_argument('--temperature', type=float, default=0.5)
     parser.add_argument('--maxtemperature', type=float, default=0.5)
     parser.add_argument('--momentum', type=float, default=0.99)
@@ -18,7 +17,6 @@ def get_args_parameter():
     parser.add_argument('--knn_k', type=int, default=10,
                         help='fixed K for the KNN graph; default: 10')
 
-    # Training settings
     parser.add_argument('--batch_size', type=int, default=256,
                         help='batch size per GPU')
     parser.add_argument('--epochs', type=int, default=200)
@@ -26,7 +24,6 @@ def get_args_parameter():
                         help='epochs to warmup learning rate')
     parser.add_argument('--train_time', type=int, default=5)
 
-    # Optimizer parameters
     parser.add_argument('--weight_decay', type=float, default=0,
                         help='Initial value of the weight decay. (default: 0)')
 
@@ -35,7 +32,6 @@ def get_args_parameter():
     parser.add_argument('--minlr', type=float, default=None,
                         help='learning rate (absolute minlr)')
 
-    # Data loader and logger
     parser.add_argument('--dataset', type=str, default='AgNews',
                         choices=['AgNews', 'Biomedical', 'SearchSnippets',
                                  'StackOverflow'])

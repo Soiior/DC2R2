@@ -4,7 +4,7 @@ PyTorch implementation for **Decoupled Contrastive Clustering with Restart Rando
 
 ![Framework of DC2R2](figures/fig4.png)
 
-Source code and datasets: <https://github.com/Soiior/DC2R2>
+Source code and datasets: [https://github.com/Soiior/DC2R2](https://github.com/Soiior/DC2R2)
 
 ## Requirements
 
@@ -30,6 +30,11 @@ The current release includes the processed MATLAB files and configurations for
 supplied configuration expects 768-dimensional input features.
 
 ## Training
+
+```bash
+git clone https://github.com/Soiior/DC2R2.git
+cd DC2R2
+```
 
 Run from the repository root. Hyperparameters and training options are defined in the YAML configuration files; YAML values take precedence over matching command-line arguments.
 
