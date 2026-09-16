@@ -1,0 +1,25 @@
+dataset: StackOverflow
+
+encoder_dim:
+  - [768, 512, 128]
+n_classes: 20
+batch_size: 2048
+momentum: 0.99
+temperature: 0.2
+missing_rate: 0.1
+
+blr: 5.0e-4 #基础学习率
+min_blr: 5.0e-6 #最小学习率
+weight_decay: 1e-5
+
+epochs: 200
+warmup_epochs: 80
+train_time: 1
+print_freq: 1
+knn_k: 50
+rwr_alpha: 0.3
+
+device: cuda
+data_path: data
+output_dir: Guo_v6
+seed: 0

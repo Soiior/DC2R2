@@ -1,0 +1,26 @@
+dataset: SearchSnippets
+
+encoder_dim:
+  - [768, 256, 64]
+n_classes: 8
+batch_size: 1024
+momentum: 0.99
+temperature: 0.2
+missing_rate: 0.2
+
+blr: 5.0e-4 #基础学习率
+min_blr: 5.0e-6 #最小学习率
+weight_decay: 1e-5
+
+epochs: 300
+warmup_epochs: 70
+train_time: 1
+print_freq: 1
+knn_k: 10
+rwr_alpha: 0.4
+
+device: cuda
+data_path: data
+output_dir: Guo_v5
+seed: 0
+
