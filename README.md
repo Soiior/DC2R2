@@ -4,6 +4,8 @@ PyTorch implementation for **Decoupled Contrastive Clustering with Restart Rando
 
 ![Framework of DC2R2](figures/fig4.png)
 
+Source code and datasets: <https://github.com/Soiior/DC2R2>
+
 ## Requirements
 
 - PyTorch
@@ -23,9 +25,9 @@ pip install numpy scipy scikit-learn PyYAML torchinfo
 
 Place the dataset files in `data/`. Each MATLAB file should contain a feature matrix `X` and a label vector `Y`.
 
-The current release includes configurations for **AgNews**, **Biomedical**, **SearchSnippets**, and **StackOverflow**. The supplied configurations expect 768-dimensional input features.
-
-Dataset download links and feature preparation details will be added to the release.
+The current release includes the processed MATLAB files and configurations for
+**AgNews**, **Biomedical**, **SearchSnippets**, and **StackOverflow**. Each
+supplied configuration expects 768-dimensional input features.
 
 ## Training
 
@@ -40,7 +42,8 @@ python main_train.py --config_file config/StackOverflow.yaml
 
 Logs and the best checkpoint are saved under the configured `output_dir`.
 
-Evaluation uses K-means on target-encoder representations. The best evaluated epoch is selected by ACC;
+Evaluation uses K-means on target-encoder representations. The best evaluated
+epoch is selected by ACC.
 
 ## Reference
 
